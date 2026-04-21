@@ -93,7 +93,7 @@ python generate_fig2_improved.py
 
 ## Scope and Limitations
 - All analyses are restricted to the **galactic scale (Tier 1)**.
-- Application to galaxy cluster scales (Tier 2) is **currently suspended** to avoid circular reasoning from $\Lambda$CDM-biased mass estimates.
+- Application to galaxy cluster scales (Tier 2) is currently suspended to avoid circular reasoning from ΛCDM-biased mass estimates.
 - The 2D-to-4D extension of the conformal interface mechanism remains an **unproven working hypothesis**.
 - The mathematical bridge from discrete N=3 causal graphs to the macroscopic hydrodynamic limit has been **numerically confirmed** ($R^2 = 0.9843$ at N=32) but **not rigorously proven**.
 
