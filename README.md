@@ -2,7 +2,6 @@
 
 **Version 1.2 (Revised April 2026)** **DOI:** [10.17605/OSF.IO/UJBPW](https://doi.org/10.17605/OSF.IO/UJBPW)
 
-[**Official GitHub Repository (Code & Data)**](https://github.com/QuantumInfoCosmo/QICS-Theory-Paper)
 
 ---
 
