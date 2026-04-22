@@ -106,20 +106,19 @@ All theoretical ideas, physical interpretations, and theoretical frameworks are 
 - **ChatGPT (OpenAI):** Initial theoretical construction and drafting.
 
 ---
-
 ### Prior Versions
 
 | Version | Date | Key Contribution |
 | :--- | :--- | :--- |
 | Ver. 4.4 | Sep 2025 | Emergence and fragility of laws (2–8 node simulations) |
-| Ver. 6.2.1 | Oct 2025 | Green-Kubo normalization correction |
-| Ver. 2.1 | Nov 2025 | 6 galaxies + gravitational lens verification |
+| Ver. 6.2.1 | Oct 2025 | Green-Kubo normalization (Volume-normalized susceptibility) |
+| Ver. 2.1 | Nov 2025 | 6 galaxies + SLACS gravitational lens verification |
 | Ver. 3.9.11 | Dec 2025 | Analytic derivation of BTFR and $a_0$ via entropic matching |
-| Ver. 5.1 | Jan 2026 | 7-galaxy parameter-free derivation |
-| Ver. 7.0 | Jan 2026 | Conformal interface mathematical foundation |
-| Ver. 8.1 | Jan 2026 | Two-Tier steady-state cosmology |
-| Ver. 9.2 | Feb 2026 | 170 galaxies + universal scaling law |
-| **Ver. 1.2** | **Apr 2026** | **Integrated paper (this work)** |
+| Ver. 5.1 | Jan 2026 | 7-galaxy parameter-free direct inversion |
+| Ver. 7.0 | Jan 2026 | Conformal interface mathematical foundation (Gluing mechanism) |
+| Ver. 8.1 | Jan 2026 | Two-Tier steady-state cosmology and Phase Metric (M) |
+| Ver. 9.2 | Feb 2026 | 170 galaxies + Universal scaling law ($D_{eff} \propto R^{1.38}$) |
+| **Ver. 1.2** | **Apr 2026** | **Integrated paper: Universal scaling law ($D_{eff} \propto R^{1.573}$) and $N=3$ Ring** |
 
 
 ---
