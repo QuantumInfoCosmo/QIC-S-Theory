@@ -121,18 +121,6 @@ All theoretical ideas, physical interpretations, and theoretical frameworks are 
 | Ver. 9.2 | Feb 2026 | 170 galaxies + universal scaling law |
 | **Ver. 1.2** | **Apr 2026** | **Integrated paper (this work)** |
 
-## Prior Versions
-
-| Version | Date | Key Contribution |
-|---------|------|------------------|
-| Ver. 4.4 | Sep 2025 | Emergence and fragility of laws (2–8 node simulations) |
-| Ver. 2.1 | Nov 2025 | 6 galaxies + gravitational lens verification |
-| Ver. 6.2.1 | Oct 2025 | Green-Kubo normalization correction |
-| Ver. 5.1 | Jan 2026 | 7-galaxy parameter-free derivation |
-| Ver. 7.0 | Jan 2026 | Conformal interface mathematical foundation |
-| Ver. 8.1 | Jan 2026 | Two-Tier steady-state cosmology |
-| Ver. 9.2 | Feb 2026 | 170 galaxies + universal scaling law |
-| **Ver. 1.2** | **Apr 2026** | **Integrated paper (this work)** |
 
 ---
 
