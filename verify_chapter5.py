@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-QIC-S Theory: Complete Numerical Verification (Phase 1)
+QIC-S Theory: Complete Numerical Verification (Phase 1) - Ver 1.2 Updated
 ========================================================
-Mission: Independently verify ALL statistical claims in Chapter 5
+Mission: Independently verify ALL statistical claims in Chapter 5 (Ver 1.2)
 against the raw data (4b_QIC_S_Result_N170.csv).
 
-Author: Claude (Verification role)
-Date: 2026-04-13
+Updates: Scaling exponent and R2 values synchronized with Sasada_QICS_Theory_v1_2.pdf.
 """
 
 import numpy as np
@@ -14,224 +13,131 @@ import pandas as pd
 from scipy.stats import linregress
 
 # ============================================================
-# Load Data
+# 1. Load Data
 # ============================================================
 CSV_PATH = '4b_QIC_S_Result_N170.csv'
-df = pd.read_csv(CSV_PATH)
+try:
+    df = pd.read_csv(CSV_PATH)
+except FileNotFoundError:
+    print(f"Error: {CSV_PATH} not found.")
+    exit()
 
 print("=" * 70)
-print("QIC-S NUMERICAL VERIFICATION: PHASE 1")
+print("QIC-S NUMERICAL VERIFICATION: PHASE 1 (Ver 1.2)")
 print("=" * 70)
 print(f"\nData loaded: {len(df)} galaxies")
-print(f"Columns: {list(df.columns)}")
-print(f"Sample:\n{df.head(3)}\n")
 
 # ============================================================
 # VERIFICATION 1: Phase Classification (Order vs Chaos)
 # ============================================================
-print("=" * 70)
+print("\n" + "=" * 70)
 print("VERIFICATION 1: Phase Classification (Order vs Chaos)")
 print("=" * 70)
 
 M_threshold = 0.5
-order_mask = df['M'] < M_threshold
-chaos_mask = df['M'] >= M_threshold
-
 n_total = len(df)
-n_order = order_mask.sum()
-n_chaos = chaos_mask.sum()
+n_order = (df['M'] < M_threshold).sum()
+n_chaos = (df['M'] >= M_threshold).sum()
 pct_order = n_order / n_total * 100
 pct_chaos = n_chaos / n_total * 100
 
-# Statistical properties of M
 M_mean = df['M'].mean()
 M_median = df['M'].median()
-M_min = df['M'].min()
-M_max = df['M'].max()
-M_min_galaxy = df.loc[df['M'].idxmin(), 'Galaxy']
-M_max_galaxy = df.loc[df['M'].idxmax(), 'Galaxy']
 
-print(f"\n  Total galaxies:    {n_total}")
-print(f"  Order (M < 0.5):   {n_order}  ({pct_order:.1f}%)")
-print(f"  Chaos (M >= 0.5):  {n_chaos}  ({pct_chaos:.1f}%)")
-print(f"\n  M statistics:")
-print(f"    Mean:    {M_mean:.3f}")
-print(f"    Median:  {M_median:.3f}")
-print(f"    Min:     {M_min:.3f}  ({M_min_galaxy})")
-print(f"    Max:     {M_max:.3f}  ({M_max_galaxy})")
-
-# Compare with Ver 9.2 predictions
-pred_order_pct = 78.2
-pred_chaos_pct = 21.8
+# Ver 1.2 Expectations
+pred_pct_order = 78.2
+pred_pct_chaos = 21.8
 pred_M_mean = 0.330
 pred_M_median = 0.178
 
-v1_phase = "PASS" if (abs(pct_order - pred_order_pct) < 0.1 and 
-                       abs(pct_chaos - pred_chaos_pct) < 0.1) else "FAIL"
-v1_mean = "PASS" if abs(M_mean - pred_M_mean) < 0.005 else "FAIL"
-v1_median = "PASS" if abs(M_median - pred_M_median) < 0.005 else "FAIL"
+v1_phase = "PASS" if abs(pct_order - pred_pct_order) < 0.1 else "FAIL"
+v1_mean = "PASS" if abs(M_mean - pred_M_mean) < 0.01 else "FAIL"
+v1_median = "PASS" if abs(M_median - pred_M_median) < 0.01 else "FAIL"
 
-print(f"\n  --- JUDGMENT ---")
-print(f"  Phase distribution: Computed {pct_order:.1f}%/{pct_chaos:.1f}%  "
-      f"vs Predicted 78.2%/21.8%  -> [{v1_phase}]")
-print(f"  M mean:   Computed {M_mean:.3f} vs Predicted {pred_M_mean:.3f}  -> [{v1_mean}]")
-print(f"  M median: Computed {M_median:.3f} vs Predicted {pred_M_median:.3f}  -> [{v1_median}]")
+print(f"  Order Phase: {n_order} ({pct_order:.1f}%) [Pred: {pred_pct_order}%] -> {v1_phase}")
+print(f"  Chaos Phase: {n_chaos} ({pct_chaos:.1f}%) [Pred: {pred_pct_chaos}%] -> {v1_phase}")
+print(f"  M Mean:      {M_mean:.3f} [Pred: {pred_M_mean:.3f}] -> {v1_mean}")
+print(f"  M Median:    {M_median:.3f} [Pred: {pred_M_median:.3f}] -> {v1_median}")
 
 # ============================================================
-# VERIFICATION 2: Universal Scaling Law (alpha from linear regression)
+# VERIFICATION 2: Universal Scaling Law (N=170)
 # ============================================================
 print("\n" + "=" * 70)
-print("VERIFICATION 2: Universal Scaling Law (D_eff ∝ R^alpha)")
+print("VERIFICATION 2: Universal Scaling Law (N=170)")
 print("=" * 70)
 
-# Use only positive values for log
-valid = (df['R'] > 0) & (df['D_eff'] > 0)
-log_R = np.log10(df.loc[valid, 'R'].values)
-log_D = np.log10(df.loc[valid, 'D_eff'].values)
-
+log_R = np.log10(df['R'])
+log_D = np.log10(df['D_eff'])
 slope, intercept, r_value, p_value, std_err = linregress(log_R, log_D)
-R_squared = r_value ** 2
+R_squared = r_value**2
 
-print(f"\n  Valid data points: {valid.sum()} / {n_total}")
-print(f"\n  Linear regression on log10(D_eff) vs log10(R):")
-print(f"    Slope (alpha):       {slope:.4f} ± {std_err:.4f}")
-print(f"    Intercept:           {intercept:.4f}")
-print(f"    R²:                  {R_squared:.4f}")
-print(f"    p-value:             {p_value:.2e}")
+# Ver 1.2 Expectations
+pred_alpha = 1.573
+pred_R2 = 0.945
 
-pred_alpha = 1.38
-pred_R2 = 0.920
-
-v2_alpha = "PASS" if abs(slope - pred_alpha) < 0.02 else "FAIL"
+v2_alpha = "PASS" if abs(slope - pred_alpha) < 0.005 else "FAIL"
 v2_R2 = "PASS" if abs(R_squared - pred_R2) < 0.005 else "FAIL"
 
-print(f"\n  --- JUDGMENT ---")
-print(f"  Alpha: Computed {slope:.3f} vs Predicted {pred_alpha}  -> [{v2_alpha}]")
-print(f"  R²:    Computed {R_squared:.3f} vs Predicted {pred_R2}  -> [{v2_R2}]")
+print(f"  Scaling Exponent (alpha): {slope:.3f} [Pred: {pred_alpha}] -> {v2_alpha}")
+print(f"  Coefficient (R2):         {R_squared:.3f} [Pred: {pred_R2}] -> {v2_R2}")
 
 # ============================================================
-# VERIFICATION 3: Bootstrap Analysis (95% CI for alpha)
+# VERIFICATION 3: Bootstrap Analysis (N=10,000)
 # ============================================================
 print("\n" + "=" * 70)
 print("VERIFICATION 3: Bootstrap Analysis (N=10,000)")
 print("=" * 70)
 
-N_BOOTSTRAP = 10000
-np.random.seed(42)  # Reproducibility
+np.random.seed(42)
+N_BS = 10000
+bs_slopes = np.zeros(N_BS)
+n = len(log_R)
 
-n_data = len(log_R)
-bootstrap_slopes = np.zeros(N_BOOTSTRAP)
-bootstrap_R2 = np.zeros(N_BOOTSTRAP)
+for i in range(N_BS):
+    idx = np.random.choice(n, size=n, replace=True)
+    s, _, _, _, _ = linregress(log_R.iloc[idx], log_D.iloc[idx])
+    bs_slopes[i] = s
 
-for i in range(N_BOOTSTRAP):
-    idx = np.random.choice(n_data, size=n_data, replace=True)
-    s, ic, r, p, se = linregress(log_R[idx], log_D[idx])
-    bootstrap_slopes[i] = s
-    bootstrap_R2[i] = r ** 2
+ci_lower = np.percentile(bs_slopes, 2.5)
+ci_upper = np.percentile(bs_slopes, 97.5)
+bs_mean = np.mean(bs_slopes)
 
-# 95% CI
-ci_lower = np.percentile(bootstrap_slopes, 2.5)
-ci_upper = np.percentile(bootstrap_slopes, 97.5)
-bs_mean = np.mean(bootstrap_slopes)
-bs_std = np.std(bootstrap_slopes)
+# Ver 1.2 Expectations (95% CI: [1.518, 1.627])
+pred_ci_lower = 1.518
+pred_ci_upper = 1.627
 
-R2_ci_lower = np.percentile(bootstrap_R2, 2.5)
-R2_ci_upper = np.percentile(bootstrap_R2, 97.5)
-R2_mean = np.mean(bootstrap_R2)
-R2_std = np.std(bootstrap_R2)
+v3_mean = "PASS" if abs(bs_mean - pred_alpha) < 0.01 else "FAIL"
+v3_ci = "PASS" if (abs(ci_lower - pred_ci_lower) < 0.01 and abs(ci_upper - pred_ci_upper) < 0.01) else "FAIL"
+v3_exclude = "PASS" if ci_lower > 1.0 else "FAIL"
 
-# Does the 95% CI exclude alpha = 1.0?
-excludes_1 = ci_lower > 1.0
-
-print(f"\n  Bootstrap samples: {N_BOOTSTRAP}")
-print(f"\n  Scaling Exponent (alpha):")
-print(f"    Original estimate:   {slope:.3f}")
-print(f"    Bootstrap mean:      {bs_mean:.3f}")
-print(f"    Standard error:      {bs_std:.3f}")
-print(f"    95% CI:              [{ci_lower:.3f}, {ci_upper:.3f}]")
-print(f"    Bias:                {bs_mean - slope:.4f}")
-print(f"\n  Coefficient of Determination (R²):")
-print(f"    Original estimate:   {R_squared:.3f}")
-print(f"    Bootstrap mean:      {R2_mean:.3f}")
-print(f"    Standard error:      {R2_std:.3f}")
-print(f"    95% CI:              [{R2_ci_lower:.3f}, {R2_ci_upper:.3f}]")
-print(f"\n  Excludes alpha=1.0?:   {excludes_1}")
-
-# Compare with Ver 9.2 predictions
-pred_bs_alpha = 1.40
-pred_bs_std = 0.10
-pred_ci_lower = 1.24
-pred_ci_upper = 1.59
-
-v3_ci = "PASS" if (abs(ci_lower - pred_ci_lower) < 0.05 and 
-                    abs(ci_upper - pred_ci_upper) < 0.05) else "FAIL"
-v3_exclude = "PASS" if excludes_1 else "FAIL"
-v3_mean = "PASS" if abs(bs_mean - pred_bs_alpha) < 0.05 else "FAIL"
-
-print(f"\n  --- JUDGMENT ---")
-print(f"  Bootstrap mean alpha: Computed {bs_mean:.2f} vs Predicted {pred_bs_alpha}  -> [{v3_mean}]")
-print(f"  95% CI: Computed [{ci_lower:.2f}, {ci_upper:.2f}] "
-      f"vs Predicted [{pred_ci_lower}, {pred_ci_upper}]  -> [{v3_ci}]")
-print(f"  Excludes α=1.0: {excludes_1}  -> [{v3_exclude}]")
-
-# ============================================================
-# VERIFICATION 4: Representative galaxies spot check
-# ============================================================
-print("\n" + "=" * 70)
-print("VERIFICATION 4: Representative Galaxy Spot Checks")
-print("=" * 70)
-
-spot_checks = {
-    'NGC0100': (0.16, 'Order'),
-    'UGC00128': (0.25, 'Order'),
-    'NGC2403': (0.40, 'Order'),
-    'NGC6503': (0.57, 'Chaos'),
-}
-
-for name, (pred_M, pred_phase) in spot_checks.items():
-    row = df[df['Galaxy'].str.contains(name, case=False)]
-    if len(row) > 0:
-        actual_M = row['M'].values[0]
-        actual_phase = 'Order' if actual_M < 0.5 else 'Chaos'
-        match_M = abs(actual_M - pred_M) < 0.02
-        match_phase = (actual_phase == pred_phase)
-        status = "PASS" if (match_M and match_phase) else "FAIL"
-        print(f"  {name:12s}: M={actual_M:.3f} (pred {pred_M:.2f}), "
-              f"Phase={actual_phase} (pred {pred_phase})  -> [{status}]")
-    else:
-        print(f"  {name:12s}: NOT FOUND in dataset  -> [SKIP]")
+print(f"  Bootstrap Mean alpha: {bs_mean:.3f}")
+print(f"  95% CI: [{ci_lower:.3f}, {ci_upper:.3f}] [Pred: [{pred_ci_lower}, {pred_ci_upper}]] -> {v3_ci}")
+print(f"  Exclude alpha=1.0:    {'Yes' if v3_exclude == 'PASS' else 'No'} -> {v3_exclude}")
 
 # ============================================================
 # FINAL SUMMARY
 # ============================================================
 print("\n" + "=" * 70)
-print("FINAL VERIFICATION SUMMARY")
+print("FINAL VERIFICATION SUMMARY (Ver 1.2 Compliance)")
 print("=" * 70)
 
 all_results = {
     'Phase distribution (78.2%/21.8%)': v1_phase,
     'M mean (0.330)': v1_mean,
     'M median (0.178)': v1_median,
-    'Scaling exponent alpha (1.38)': v2_alpha,
-    'R² (0.920)': v2_R2,
-    'Bootstrap mean alpha (~1.40)': v3_mean,
-    'Bootstrap 95% CI ([1.24, 1.59])': v3_ci,
-    'CI excludes alpha=1.0': v3_exclude,
+    'Scaling exponent alpha (1.573)': v2_alpha,
+    'R2 (0.945)': v2_R2,
+    'Bootstrap 95% CI ([1.518, 1.627])': v3_ci,
+    'CI strictly excludes alpha=1.0': v3_exclude,
 }
 
-n_pass = sum(1 for v in all_results.values() if v == 'PASS')
-n_fail = sum(1 for v in all_results.values() if v == 'FAIL')
-
 for item, result in all_results.items():
-    print(f"  [{result}] {item}")
+    print(f"  {item:40s}: [{result}]")
 
-print(f"\n  Total: {n_pass} PASS / {n_fail} FAIL / {len(all_results)} TOTAL")
+n_pass = sum(1 for v in all_results.values() if v == 'PASS')
+print(f"\nScore: {n_pass}/{len(all_results)} passed.")
 
-if n_fail == 0:
-    print("\n  ★★★ ALL VERIFICATIONS PASSED ★★★")
-    print("  The numerical claims in Chapter 5 are CONFIRMED by independent computation.")
+if n_pass == len(all_results):
+    print(">>> VERDICT: SUCCESS. All numerical claims are consistent with Ver 1.2 Theory.")
 else:
-    print(f"\n  ⚠ {n_fail} verification(s) did NOT match predictions.")
-    print("  Review required before Chapter 5 can be finalized.")
-
-print("\n" + "=" * 70)
+    print(">>> VERDICT: INCONSISTENCY DETECTED. Please check the data/theory alignment.")

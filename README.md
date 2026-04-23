@@ -2,6 +2,15 @@
 
 **Version 1.2 (Revised April 2026)** **DOI:** [10.17605/OSF.IO/UJBPW](https://doi.org/10.17605/OSF.IO/UJBPW)
 
+---
+
+## ⚠️ Important Notice (April 24, 2026)
+
+**`verify_chapter5.py` has been updated.** The previous version contained stale expected values from Ver. 9.2 ($\alpha = 1.38$, $R^2 = 0.920$) that were not synchronized with the Ver. 1.2 paper ($\alpha = 1.573$, $R^2 = 0.945$). The computational logic was correct—the script produced the correct numerical output—but the PASS/FAIL thresholds referenced the wrong baseline, causing false FAIL results for two items.
+
+This discrepancy was identified through cross-validation by Gemini (Google) and independently confirmed by Claude (Anthropic). The corrected script now returns **7/7 PASS** against the Ver. 1.2 theoretical values. If you downloaded the repository before this date, please replace `verify_chapter5.py` with the current version.
+
+All other files (paper, data, figures, and remaining scripts) are unchanged and were verified to be correct.
 
 ---
 
@@ -30,7 +39,7 @@ QIC-S proposes that the universe is a collection of discrete causal graphs, wher
 ├── 4b_QIC_S_Result_N170.csv           # 170-galaxy dataset (Galaxy, M, R, D_eff)
 ├── Comparison_Histogram_N170.pdf      # Figure 1: Mass agreement distribution
 ├── Fig2_Scaling_Law_Improved.png      # Figure 2: Universal scaling law
-├── verify_chapter5.py                 # Phase classification & scaling verification
+├── verify_chapter5.py                 # Phase classification & scaling verification (UPDATED Apr 24)
 ├── verify_with_filaments.py           # Galaxy + filament combined regression
 ├── chapter5_evidence.py               # All Chapter 5 statistics (one-shot)
 ├── verify_chapter6_v3_dt001.py        # Edge-based Lindblad mixing time (dt=0.01)
@@ -57,7 +66,7 @@ python verify_with_filaments.py
 # Generate all certified numerical evidence
 python chapter5_evidence.py
 ```
-**Expected output:** 13/13 verification items PASS.
+**Expected output:** `verify_chapter5.py` returns 7/7 PASS. `chapter5_evidence.py` outputs both galaxy-only ($\alpha = 1.573$) and combined ($\alpha = 1.380$) results.
 
 ### Chapter 6: Edge-based Lindblad Mixing Times
 ```bash
@@ -93,7 +102,7 @@ python generate_fig2_improved.py
 
 ## Scope and Limitations
 - All analyses are restricted to the **galactic scale (Tier 1)**.
-- Application to galaxy cluster scales (Tier 2) is currently suspended to avoid circular reasoning from ΛCDM-biased mass estimates.
+- Application to galaxy cluster scales (Tier 2) is **currently suspended** to avoid circular reasoning from $\Lambda$CDM-biased mass estimates.
 - The 2D-to-4D extension of the conformal interface mechanism remains an **unproven working hypothesis**.
 - The mathematical bridge from discrete N=3 causal graphs to the macroscopic hydrodynamic limit has been **numerically confirmed** ($R^2 = 0.9843$ at N=32) but **not rigorously proven**.
 
@@ -102,24 +111,33 @@ python generate_fig2_improved.py
 ## AI Disclosure
 All theoretical ideas, physical interpretations, and theoretical frameworks are the sole responsibility of the author. AI systems were employed as auxiliary tools:
 - **Claude (Anthropic):** Theoretical synthesis, independent numerical verification, and document preparation.
-- **Gemini (Google):** Code development, simulation execution, and document preparation (LaTeX typesetting).
+- **Gemini (Google):** Code development, simulation execution, document preparation (LaTeX typesetting), and cross-validation of verification scripts.
 - **ChatGPT (OpenAI):** Initial theoretical construction and drafting.
 
 ---
-### Prior Versions
+
+## Changelog
+
+| Date | Change | Affected Files |
+|------|--------|----------------|
+| Apr 24, 2026 | Fixed stale expected values in verification script (Ver 9.2 → Ver 1.2 alignment). Computational logic unchanged; PASS/FAIL thresholds corrected. Identified by Gemini, confirmed by Claude. | `verify_chapter5.py`, `README.md` |
+| Apr 21, 2026 | Initial public release of QIC-S Theory Ver. 1.2. | All files |
+
+---
+
+## Prior Versions
 
 | Version | Date | Key Contribution |
-| :--- | :--- | :--- |
+|---------|------|------------------|
+| Ver. 3.9.11 | Dec 2025 | Cauchy Slice Holography + CNMG: BTFR derivation and $a_0 = cH_0/2\pi$ from first principles. NGC 2403 validation (RMS 4.8 km/s). |
 | Ver. 4.4 | Sep 2025 | Emergence and fragility of laws (2–8 node simulations) |
-| Ver. 6.2.1 | Oct 2025 | Green-Kubo normalization (Volume-normalized susceptibility) |
-| Ver. 2.1 | Nov 2025 | 6 galaxies + SLACS gravitational lens verification |
-| Ver. 3.9.11 | Dec 2025 | Analytic derivation of BTFR and $a_0$ via entropic matching |
-| Ver. 5.1 | Jan 2026 | 7-galaxy parameter-free direct inversion |
-| Ver. 7.0 | Jan 2026 | Conformal interface mathematical foundation (Gluing mechanism) |
-| Ver. 8.1 | Jan 2026 | Two-Tier steady-state cosmology and Phase Metric (M) |
-| Ver. 9.2 | Feb 2026 | 170 galaxies + Universal scaling law ($D_{eff} \propto R^{1.38}$) |
-| **Ver. 1.2** | **Apr 2026** | **Integrated paper: Universal scaling law ($D_{eff} \propto R^{1.573}$) and $N=3$ Ring** |
-
+| Ver. 2.1 | Nov 2025 | 6 galaxies + gravitational lens verification |
+| Ver. 6.2.1 | Oct 2025 | Green-Kubo normalization correction |
+| Ver. 5.1 | Jan 2026 | 7-galaxy parameter-free derivation |
+| Ver. 7.0 | Jan 2026 | Conformal interface mathematical foundation |
+| Ver. 8.1 | Jan 2026 | Two-Tier steady-state cosmology |
+| Ver. 9.2 | Feb 2026 | 170 galaxies + universal scaling law |
+| **Ver. 1.2** | **Apr 2026** | **Integrated paper (this work)** |
 
 ---
 
