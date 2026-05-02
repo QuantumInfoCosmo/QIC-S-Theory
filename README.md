@@ -119,18 +119,6 @@ Multi-AI peer review simulations were conducted at each revision stage. All thre
 
 ---
 
-## Revision History
-
-| Version | Date | Score | Key Changes |
-|:---|:---|:---|:---|
-| Ver. 1.2 | Apr 2026 | 61/100 | Initial integrated paper |
-| Ver. 1.3 | May 2026 | 78/100 | M=0.5 flagged as empirical; t_stable defined; SLACS method described; §3.3 (D_eff justification) added |
-| Ver. 1.4.1 | May 2026 | 86/100 | Figures embedded; Table 3 three-category notation; "among tested topologies" qualification |
-| Ver. 1.5 | May 2026 | 89/100 | Variance/log-scale rationale restored; D_eff derivation expanded; Figure 2 cross-ref; data sources clarified |
-| Ver. 1.5.1 | May 2026 | 90/100 | Figure 2 reference added to §2.3 |
-| **Ver. 1.5.2** | **May 2026** | **91/100** | **§3.7 ADM correspondence expanded; GitHub URL added; OSF DOI added to all self-references** |
-
-Scores are from Claude (Anthropic) strict peer review mode. Gemini and Le Chat independently scored v1.3 revisions at 85/100.
 
 ### Prior Research Versions
 
