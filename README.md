@@ -1,4 +1,13 @@
-# QIC-S Theory — Numerical Codebase
+> [!WARNING]
+> **Retraction Notice (May 16, 2026)**
+> 
+> The central claims of §2 and §7 of QIC-S Theory Ver 1.6 (the establishment of $D_{\infty} > 0$ under pure unitary evolution on 3D lattices) have been **refuted and retracted** following an extension of the numerical computation to $L=10$.
+> 
+> Please see [ERRATUM_Ver1.6.md](./ERRATUM_Ver1.6.md) for full details and the corresponding data.
+> 
+> The prior results derived from independent logical pathways—including the 99.46% agreement with 170 SPARC galaxies (Ver 9.2), the derivation of the Baryonic Tully-Fisher Relation, and the $a_0 = cH_0/2\pi$ derivation—are **NOT affected** by this specific model limitation.
+> 
+> QIC-S Theory Ver 1.7 is currently in preparation to address these structural requirements.# QIC-S Theory — Numerical Codebase
 ## Hydrodynamic Limit of Causal Networks: Ver 1.6
 
 [![OSF DOI](https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FKB75P-blue)](https://osf.io/kb75p/)
