@@ -3,7 +3,7 @@
 **Issue date:** May 16, 2026
 **Author:** Yoshiaki Sasada
 **Affected document:** *QIC-S Theory Ver 1.6 — Hydrodynamic Limit of Causal Networks: Convergence of Transport Coefficients and the Origin of Scaling Laws in Three-Dimensional Lattices*
-**OSF DOI:** 10.17605/OSF.IO/YADKR (Ver 1.6)
+**OSF DOI:** 10.17605/OSF.IO/KB75P (Ver 1.6)
 **Status:** Section 2, parts of Sections 3 and 7 are **retracted** pending Ver 1.7. The Ver 1.6 document remains available as a frozen scientific record.
 
 ---
