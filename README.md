@@ -20,16 +20,20 @@
 
 ---
 
-## Overview
+Overview
 
 QIC-S (Quantum Information Cosmology — Sasada) is a theoretical framework that explains galaxy rotation curves without postulating dark matter. Its core claim: an effective transport coefficient $D_{\text{eff}}$ emerging from a discrete causal network at microscopic scales gives rise to gravitational phenomena at galactic scales.
 
-This repository contains the complete numerical codebase for **Ver 1.6**, which:
+This repository contains the complete numerical codebase for Ver 1.6. The status of the original claims is as follows:
 
-1. Proves the hydrodynamic limit $D_\infty > 0$ on 3D cubic lattices ($L = 3$–$9$, $N = 81$–$2187$) with the $N = 3$ Ring as the unit cell
-2. Identifies and corrects an artifact in the conventional susceptibility $\chi_{\text{local}}$ for 3D lattices
-3. Scans the inter-cell coupling ratio $r = g_{\text{inter}}/g_{\text{internal}}$ and identifies a transport efficiency peak at $r = 2$
-4. Formulates the micro–macro relation $D_{\text{eff}} = D_{\text{GK}} \times \tau_R / \tau_c$
+* **[RETRACTED — see ERRATUM]** ~~Proves the hydrodynamic limit $D_{\infty} > 0$ on 3D cubic lattices ($L=3–9$, $N=81–2187$) with the $N=3$ Ring as the unit cell~~
+* **[Remains Valid]** Identifies and corrects an artifact in the conventional susceptibility $\chi_{\text{local}}$ for 3D lattices.
+* **[Remains Valid]** Scans the inter-cell coupling ratio $r = g_{\text{inter}} / g_{\text{internal}}$ and identifies a transport efficiency peak at $r = 2$.
+* **[Weakened — see ERRATUM]** Formulates the micro–macro relation $D_{\text{eff}} = D_{\text{GK}} \times \tau_R / \tau_c$ (The bridge formula remains formulated, but relies on the non-finite nature of $D_{\text{GK}}$ under the studied model).
+
+The codebase is retained strictly for scientific reproducibility, including the $L=10$ extension (`qics_v17_L10_extension.py`) which provided the refuting data.
+
+Key Results at a Glance
 
 ---
 
