@@ -5,7 +5,7 @@
 > 
 > Please see [ERRATUM_Ver1.6.md](./ERRATUM_Ver1.6.md) for full details and the corresponding data.
 > 
-> The prior results derived from independent logical pathways—including the 99.46% agreement with 170 SPARC galaxies (Ver 9.2), the derivation of the Baryonic Tully-Fisher Relation, and the $a_0 = cH_0/2\pi$ derivation—are **NOT affected** by this specific model limitation.
+> The prior results derived from independent logical pathways—including the 99.46% agreement with **7 SPARC galaxies** (Ver 5.1), the derivation of the Baryonic Tully-Fisher Relation, and the $a_0 = cH_0/2\pi$ derivation—are **NOT affected** by this specific model limitation.
 > 
 > QIC-S Theory Ver 1.7 is currently in preparation to address these structural requirements.# QIC-S Theory — Numerical Codebase
 ## Hydrodynamic Limit of Causal Networks: Ver 1.6

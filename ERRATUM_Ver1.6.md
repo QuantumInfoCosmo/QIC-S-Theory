@@ -36,7 +36,7 @@ The phrasing of §5 ("α = 1.573 follows naturally from the BTFR and the galaxy 
 
 The following results of Ver 1.5.2 and prior versions are **independent of the §2 calculation** and remain valid:
 
-- The 99.46% ± 2.53% agreement with 170 SPARC galaxy rotation curves via the Direct Inversion Method (Ver 9.2).
+- The 99.46% ± 2.53% agreement with **7 SPARC galaxy** rotation curves via the Direct Inversion Method (Ver 5.1).
 - The derivation of the Baryonic Tully–Fisher Relation from Cauchy Slice Holography and CNMG (Ver 3.9.11).
 - The theoretical derivation of a_0 = cH_0/2π.
 - The N = 3 Ring as the minimal stable causal unit via Edge-based Lindblad dynamics (t_mix = 0.684).
